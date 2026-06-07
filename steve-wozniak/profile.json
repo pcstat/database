@@ -1,0 +1,168 @@
+{
+  "name": "Steve Wozniak",
+  "tagline": "Designing the future, one chip at a time.",
+  "role": "Hardware Legend",
+  "subtitle": "Hardware engineering & Embedded systems",
+  "photo": "",
+  "bio": "Steve Wozniak is the Hardware Legend of the Statistics Programming Club. He pioneered the design of Apple I and Apple II, showcasing that hobbyist electrical engineering can revolutionize global computing. Known for his obsession with efficiency and minimalism, Woz continues to inspire engineers to build things that are not just functional, but elegant in their simplicity.",
+  "location": "San Jose, CA",
+  "session": "2024-25",
+  "socials": [
+    {
+      "type": "github",
+      "label": "GitHub",
+      "url": "https://github.com/woz-apple-legend"
+    },
+    {
+      "type": "linkedin",
+      "label": "LinkedIn",
+      "url": "https://linkedin.com/in/stevewozniak"
+    }
+  ],
+  "stats": [
+    {
+      "value": "40+",
+      "label": "Years of Experience"
+    },
+    {
+      "value": "2",
+      "label": "Iconic Computers Designed"
+    },
+    {
+      "value": "1000s",
+      "label": "Lives Changed"
+    },
+    {
+      "value": "0",
+      "label": "Wasted Chips"
+    }
+  ],
+  "focus_areas": [
+    "Hardware Engineering",
+    "Embedded Systems",
+    "Microprocessor Programming",
+    "Retro Computing",
+    "Minimalist Design",
+    "Digital Logic"
+  ],
+  "skills": [
+    {
+      "category": "Hardware",
+      "icon": "tools",
+      "items": [
+        "Breadboarding",
+        "PCB Design",
+        "6502 Assembly",
+        "Disk II Controller Design",
+        "Analog Circuitry",
+        "Digital Logic Gates"
+      ]
+    },
+    {
+      "category": "Software",
+      "icon": "code",
+      "items": [
+        "Integer BASIC",
+        "Machine Code",
+        "Assembly Language",
+        "Embedded C"
+      ]
+    }
+  ],
+  "timeline": [
+    {
+      "role": "Co-founder & Chief Hardware Engineer, Apple Computer",
+      "year": "1976–1985",
+      "current": false
+    },
+    {
+      "role": "CL 15 Educator, Los Gatos School District",
+      "year": "1990–1998",
+      "current": false
+    },
+    {
+      "role": "Hardware Legend / Mentor, Statistics Programming Club",
+      "year": "2024–present",
+      "current": true
+    }
+  ],
+  "projects": [
+    {
+      "title": "Apple II Computer Design",
+      "description": "Designed the entire architecture of the Apple II, one of the first highly successful mass-produced microcomputers, featuring color graphics and expansion slots.",
+      "tags": [
+        "Apple II",
+        "6502 Assembly",
+        "Hardware Design"
+      ],
+      "featured": true,
+      "links": {
+        "github": "https://github.com/apple/apple-ii-source"
+      }
+    },
+    {
+      "title": "Disk II Controller",
+      "description": "Invented a highly optimized floppy disk controller using minimal logic gates, making external storage affordable for home users.",
+      "tags": [
+        "Hardware",
+        "Floppy Disk",
+        "Logic Gates"
+      ],
+      "featured": false,
+      "links": {}
+    },
+    {
+      "title": "The Woz-Box (Custom Synth)",
+      "description": "Designed and built a custom analog synthesizer using discrete components to explore the intersection of music and electronics.",
+      "tags": [
+        "Analog Circuits",
+        "Signal Processing",
+        "DIY Electronics"
+      ],
+      "featured": false,
+      "links": {}
+    }
+  ],
+  "publications": [
+    {
+      "title": "System Description: The Apple II",
+      "venue": "Byte Magazine · 1977",
+      "tags": [
+        "Hardware",
+        "Microcomputers"
+      ],
+      "featured": true,
+      "links": {
+        "paper": "https://archive.org/details/byte-magazine-1977-05"
+      }
+    },
+    {
+      "title": "The Art of Minimalist Hardware Design",
+      "venue": "Engineering Review · 1982",
+      "tags": [
+        "Hardware",
+        "Minimalism"
+      ],
+      "featured": false,
+      "links": {}
+    }
+  ],
+  "achievements": [
+    {
+      "title": "National Medal of Technology",
+      "event": "US President",
+      "year": "1985"
+    },
+    {
+      "title": "Heinz Award for Technology",
+      "event": "Heinz Family Foundation",
+      "year": "2001"
+    },
+    {
+      "title": "Legendary Pioneer Award",
+      "event": "Computer History Museum",
+      "year": "2010"
+    }
+  ],
+  "cv_link": ""
+}
