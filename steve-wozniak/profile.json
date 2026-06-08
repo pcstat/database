@@ -72,24 +72,39 @@
   "timeline": [
     {
       "role": "Co-founder & Chief Hardware Engineer, Apple Computer",
-      "year": "1976–1985",
-      "current": false
+      "start": "1976",
+      "end": "1985",
+      "description": "Pioneered the design of Apple I and Apple II.\nRevolutionized global computing through hobbyist electrical engineering.",
+      "short_desc": "Pioneered the design of Apple I and Apple II.",
+      "tags": ["Apple II", "Hardware Design"],
+      "company": "Apple Computer",
+      "type": "Full-time"
     },
     {
       "role": "CL 15 Educator, Los Gatos School District",
-      "year": "1990–1998",
-      "current": false
+      "start": "1990",
+      "end": "1998",
+      "description": "Served as an educator within the Los Gatos School District.\nFocused on early computer literacy and technology education.",
+      "short_desc": "Educator in Los Gatos School District.",
+      "tags": ["Education"],
+      "company": "Los Gatos School District",
+      "type": "Professional"
     },
     {
       "role": "Hardware Legend / Mentor, Statistics Programming Club",
-      "year": "2024–present",
-      "current": true
+      "start": "2024",
+      "end": "present",
+      "description": "Inspiring engineers to build things that are not just functional, but elegant in their simplicity.\nMentoring next-generation hardware pioneers.",
+      "short_desc": "Inspiring engineers to build elegant hardware.",
+      "tags": ["Hardware", "Mentorship"],
+      "company": "Statistics Programming Club",
+      "type": "Professional"
     }
   ],
   "projects": [
     {
       "title": "Apple II Computer Design",
-      "description": "Designed the entire architecture of the Apple II, one of the first highly successful mass-produced microcomputers, featuring color graphics and expansion slots.",
+      "description": "Designed the entire architecture of the Apple II.\nOne of the first highly successful mass-produced microcomputers, featuring color graphics and expansion slots.",
       "tags": [
         "Apple II",
         "6502 Assembly",
@@ -102,7 +117,7 @@
     },
     {
       "title": "Disk II Controller",
-      "description": "Invented a highly optimized floppy disk controller using minimal logic gates, making external storage affordable for home users.",
+      "description": "Invented a highly optimized floppy disk controller.\nUsed minimal logic gates, making external storage affordable for home users.",
       "tags": [
         "Hardware",
         "Floppy Disk",
@@ -113,7 +128,7 @@
     },
     {
       "title": "The Woz-Box (Custom Synth)",
-      "description": "Designed and built a custom analog synthesizer using discrete components to explore the intersection of music and electronics.",
+      "description": "Designed and built a custom analog synthesizer.\nExplored the intersection of music and electronics using discrete components.",
       "tags": [
         "Analog Circuits",
         "Signal Processing",

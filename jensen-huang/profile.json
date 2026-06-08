@@ -90,24 +90,39 @@
   "timeline": [
     {
       "role": "CEO & Founder, NVIDIA",
-      "year": "1993–present",
-      "current": true
+      "start": "1993",
+      "end": "present",
+      "description": "Leading the revolution in accelerated computing and AI.\nDriving innovation in GPU architecture and deep learning systems.",
+      "short_desc": "Leading the revolution in accelerated computing and AI.",
+      "tags": ["GPU", "AI"],
+      "company": "NVIDIA",
+      "type": "Full-time"
     },
     {
       "role": "AI Architect, Statistics Programming Club",
-      "year": "2026–present",
-      "current": true
+      "start": "2026",
+      "end": "present",
+      "description": "Designing high-performance GPU-accelerated computing pipelines.\nMentoring student developers in hardware-software co-design.",
+      "short_desc": "Designing high-performance GPU-accelerated computing pipelines.",
+      "tags": ["GPU", "AI"],
+      "company": "Statistics Programming Club",
+      "type": "Professional"
     },
     {
       "role": "Director of Engineering, LSI Logic",
-      "year": "1985–1993",
-      "current": false
+      "start": "1985",
+      "end": "1993",
+      "description": "Leading engineering efforts in semiconductor design.\nManaging complex VLSI design projects.",
+      "short_desc": "Leading engineering efforts in semiconductor design.",
+      "tags": ["Semiconductor", "Engineering"],
+      "company": "LSI Logic",
+      "type": "Full-time"
     }
   ],
   "projects": [
     {
       "title": "CUDA Platform Development",
-      "description": "Created a parallel computing platform and programming model that enables dramatic increases in computing performance by harnessing the power of the graphics processing unit (GPU).",
+      "description": "Created a parallel computing platform and programming model.\nEnables dramatic increases in computing performance by harnessing the power of the GPU.",
       "tags": [
         "CUDA",
         "C++",
@@ -122,7 +137,7 @@
     },
     {
       "title": "Toyon Supercomputer Design",
-      "description": "Co-designed and built a custom deep learning supercomputer cluster for high-dimensional statistical model validation and generative AI workloads.",
+      "description": "Co-designed and built a custom deep learning supercomputer cluster.\nDesigned for high-dimensional statistical model validation and generative AI workloads.",
       "tags": [
         "HPC",
         "PyTorch",
@@ -135,7 +150,7 @@
     },
     {
       "title": "Omniverse Industrial Digital Twin",
-      "description": "Designed a real-time 3D simulation platform for industrial digital twins, allowing companies to simulate entire factories in physically accurate environments.",
+      "description": "Designed a real-time 3D simulation platform for industrial digital twins.\nAllows companies to simulate entire factories in physically accurate environments.",
       "tags": [
         "RTX",
         "USD",

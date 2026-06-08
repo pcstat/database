@@ -122,25 +122,25 @@ Any key that is an array and not one of the standard fields will be rendered in 
 ### Example `cv.json`
 ```json
 {
-  "name": "Omon Das",
+  "name": "Rahul Das",
   "role": "Intern Researcher",
   "location": "Chittagong, Bangladesh",
-  "email": "omondas1234@gmail.com",
-  "github": "github.com/Omonsun",
+  "email": "rahuldas12d34@gmail.com",
+  "github": "github.com/rahuldadn",
   "languages": ["Bengali", "English"],
   "education": [
     {
       "degree": "B.Sc. in Statistics",
-      "institution": "University of Chittagong",
+      "institution": "University of Dhaka",
       "year": "Jan ’22 - May ’26",
-      "cgpa": "3.45/4.0"
+      "cgpa": "3.85/4.0"
     }
   ],
   "experience": [
     {
       "title": "Intern Researcher",
       "dates": "May 2025 – July 2025",
-      "subtitle": "Datakothon Research Lab",
+      "subtitle": "Meta Research Lab",
       "bullets": [
         {
           "text": "Project 1: Predicting Breast Cancer...",

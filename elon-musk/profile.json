@@ -6,7 +6,7 @@
   "photo": "",
   "bio": "Elon Musk is the Chief Engineer of the Statistics Programming Club. He specializes in scalable statistical pipelines, planetary-scale deep learning models, and building terminal-aesthetic user interfaces for high-performance applications. Beyond the club, he architects the future of multi-planetary life, sustainable energy, and the symbiotic relationship between human intelligence and artificial intelligence.",
   "location": "Texas, USA (Dhaka Branch)",
-  "session": "2021-present",
+  "session": "2021-22",
   "socials": [
     { "type": "github", "label": "GitHub", "url": "https://github.com/elonmusk" },
     { "type": "linkedin", "label": "LinkedIn", "url": "https://linkedin.com/in/elonmusk" },
@@ -38,15 +38,51 @@
     }
   ],
   "timeline": [
-    { "role": "Data Analyst", "year": "2020", "current": false },
-    { "role": "ML Engineer", "year": "2021", "current": false },
-    { "role": "CEO & Chief Engineer, Tesla/SpaceX", "year": "2002–present", "current": true },
-    { "role": "Senior ML Engineer, Statistics Programming Club", "year": "2023–present", "current": true }
+    {
+      "role": "Senior ML Engineer",
+      "start": "2023",
+      "end": "present",
+      "description": "Leading LLM infrastructure and agentic pipeline design.\nBuilt multi-model routing system reducing inference cost by 40%.",
+      "short_desc": "Leading LLM infrastructure and agentic pipeline design.",
+      "tags": ["LLMs", "MLOps", "Python"],
+      "company": "Acme AI",
+      "type": "Full-time"
+    },
+    {
+      "role": "ML Engineer",
+      "start": "2021",
+      "end": "2023",
+      "description": "Developed NLP pipelines for document classification at scale.\nShipped production models serving 2M+ users.",
+      "short_desc": "NLP pipelines for document classification at scale.",
+      "tags": ["PyTorch", "NLP", "FastAPI"],
+      "company": "DataCo",
+      "type": "Full-time"
+    },
+    {
+      "role": "Data Scientist",
+      "start": "2019",
+      "end": "2021",
+      "description": "Built predictive models for credit risk.\nReduced false positive rate by 18% using ensemble methods.",
+      "short_desc": "Built predictive models for credit risk.",
+      "tags": ["XGBoost", "Pandas", "SQL"],
+      "company": "FinTech Corp",
+      "type": "Full-time"
+    },
+    {
+      "role": "Research Intern",
+      "start": "2018",
+      "end": "2019",
+      "description": "Implemented novel attention mechanisms for sequence-to-sequence tasks.\nWorked under Prof. X in the University AI Lab.",
+      "short_desc": "Implemented novel attention mechanisms for sequence-to-sequence tasks.",
+      "tags": ["Research", "TensorFlow"],
+      "company": "University AI Lab",
+      "type": "Internship"
+    }
   ],
   "projects": [
     {
       "title": "Distribution Detective",
-      "description": "A 21-distribution statistical detection pipeline using scientific programming, enabling instant identification of non-parametric probability distributions from raw telemetry streams.",
+      "description": "A 21-distribution statistical detection pipeline using scientific programming.\nEnables instant identification of non-parametric probability distributions from raw telemetry streams.",
       "tags": ["Python", "SciPy", "NumPy"],
       "featured": true,
       "links": {
@@ -57,7 +93,7 @@
     },
     {
       "title": "TERM_AI",
-      "description": "Terminal-aesthetic Streamlit chatbot configured for conversational research on statistical distributions, powered by fine-tuned open-source models.",
+      "description": "Terminal-aesthetic Streamlit chatbot configured for conversational research.\nPowered by fine-tuned open-source models for statistical distributions.",
       "tags": ["Python", "Streamlit", "LLM"],
       "featured": false,
       "links": {
@@ -66,7 +102,7 @@
     },
     {
       "title": "Starlink Neural Network",
-      "description": "A planetary-scale mesh network utilizing AI for real-time orbital routing and interference mitigation to provide global high-speed internet.",
+      "description": "A planetary-scale mesh network utilizing AI for real-time orbital routing.\nProvides global high-speed internet via interference mitigation.",
       "tags": ["AI", "Aerospace", "Networking"],
       "featured": true,
       "links": {
@@ -76,7 +112,7 @@
     },
     {
       "title": "Optimus Humanoid AI",
-      "description": "Integration of Tesla's FSD vision-based neural networks into a general-purpose humanoid robot for autonomous labor.",
+      "description": "Integration of Tesla's FSD vision-based neural networks into a humanoid robot.\nEnables autonomous labor through advanced computer vision.",
       "tags": ["Robotics", "Computer Vision", "PyTorch"],
       "featured": true,
       "links": {

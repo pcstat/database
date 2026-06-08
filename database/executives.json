@@ -64,7 +64,9 @@
             }
           ],
           "student_id": "2020003",
-          "icon_link": "https://programming-club-demo-data.pages.dev/sam-altman/icon.webp"
+          "icon_link": "https://programming-club-demo-data.pages.dev/sam-altman/icon.webp",
+          "cv_link": "https://programming-club-demo-data.pages.dev/sam-altman/cv.json",
+          "profile_link": ""
         },
         {
           "initial": "D",
@@ -80,7 +82,10 @@
               "url": "https://x.com/demishassabis"
             }
           ],
-          "student_id": "2020004"
+          "student_id": "2020004",
+          "icon_link": "https://programming-club-demo-data.pages.dev/demis-hassabis/icon.webp",
+          "cv_link": "https://programming-club-demo-data.pages.dev/demis-hassabis/cv.json",
+          "profile_link": "https://programming-club-demo-data.pages.dev/demis-hassabis/profile.json"
         },
         {
           "initial": "S",
@@ -96,7 +101,10 @@
               "url": "https://linkedin.com/in/satyanadella"
             }
           ],
-          "student_id": "2020005"
+          "student_id": "2020005",
+          "icon_link": "https://programming-club-demo-data.pages.dev/satya-nadella/icon.webp",
+          "cv_link": "https://programming-club-demo-data.pages.dev/satya-nadella/cv.json",
+          "profile_link": "https://programming-club-demo-data.pages.dev/satya-nadella/profile.json"
         },
         {
           "initial": "T",
@@ -112,7 +120,10 @@
               "url": "https://x.com/tim_cook"
             }
           ],
-          "student_id": "2020006"
+          "student_id": "2020006",
+          "icon_link": "https://programming-club-demo-data.pages.dev/tim-cook/icon.webp",
+          "cv_link": "https://programming-club-demo-data.pages.dev/tim-cook/cv.json",
+          "profile_link": "https://programming-club-demo-data.pages.dev/tim-cook/profile.json"
         },
         {
           "initial": "S",
@@ -128,7 +139,10 @@
               "url": "https://linkedin.com/in/sundarpichai"
             }
           ],
-          "student_id": "2020007"
+          "student_id": "2020007",
+          "icon_link": "https://programming-club-demo-data.pages.dev/sundar-pichai/icon.webp",
+          "cv_link": "https://programming-club-demo-data.pages.dev/sundar-pichai/cv.json",
+          "profile_link": "https://programming-club-demo-data.pages.dev/sundar-pichai/profile.json"
         },
         {
           "initial": "M",
@@ -144,7 +158,10 @@
               "url": "https://x.com/zuck"
             }
           ],
-          "student_id": "2020008"
+          "student_id": "2020008",
+          "icon_link": "https://programming-club-demo-data.pages.dev/mark-zuckerberg/icon.webp",
+          "cv_link": "https://programming-club-demo-data.pages.dev/mark-zuckerberg/cv.json",
+          "profile_link": "https://programming-club-demo-data.pages.dev/mark-zuckerberg/profile.json"
         }
       ]
     },
