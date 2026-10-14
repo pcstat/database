@@ -26,9 +26,9 @@
             }
           ],
           "student_id": "2020001",
-          "icon_link": "https://programming-club-demo-data.pages.dev/elon-musk/icon.webp",
-          "cv_link": "https://programming-club-demo-data.pages.dev/elon-musk/cv.json",
-          "profile_link": "https://programming-club-demo-data.pages.dev/elon-musk/profile.json"
+          "icon_link": "executives/elon-musk.webp",
+          "cv_link": "members/elon-musk/cv.json",
+          "profile_link": "members/elon-musk/profile.json"
         },
         {
           "initial": "J",
@@ -45,9 +45,9 @@
             }
           ],
           "student_id": "2020002",
-          "cv_link": "https://programming-club-demo-data.pages.dev/jensen-huang/cv.json",
-          "profile_link": "https://programming-club-demo-data.pages.dev/jensen-huang/profile.json",
-          "icon_link": "https://programming-club-demo-data.pages.dev/jensen-huang/icon.jpg"
+          "cv_link": "members/jensen-huang/cv.json",
+          "profile_link": "members/jensen-huang/profile.json",
+          "icon_link": "executives/jensen-huang.jpg"
         },
         {
           "initial": "S",
@@ -64,8 +64,8 @@
             }
           ],
           "student_id": "2020003",
-          "icon_link": "https://programming-club-demo-data.pages.dev/sam-altman/icon.webp",
-          "cv_link": "https://programming-club-demo-data.pages.dev/sam-altman/cv.json",
+          "icon_link": "executives/sam-altman.webp",
+          "cv_link": "members/sam-altman/cv.json",
           "profile_link": ""
         },
         {
@@ -83,9 +83,9 @@
             }
           ],
           "student_id": "2020004",
-          "icon_link": "https://programming-club-demo-data.pages.dev/demis-hassabis/icon.webp",
-          "cv_link": "https://programming-club-demo-data.pages.dev/demis-hassabis/cv.json",
-          "profile_link": "https://programming-club-demo-data.pages.dev/demis-hassabis/profile.json"
+          "icon_link": "executives/demis-hassabis.webp",
+          "cv_link": "members/demis-hassabis/cv.json",
+          "profile_link": "members/demis-hassabis/profile.json"
         },
         {
           "initial": "S",
@@ -102,9 +102,9 @@
             }
           ],
           "student_id": "2020005",
-          "icon_link": "https://programming-club-demo-data.pages.dev/satya-nadella/icon.webp",
-          "cv_link": "https://programming-club-demo-data.pages.dev/satya-nadella/cv.json",
-          "profile_link": "https://programming-club-demo-data.pages.dev/satya-nadella/profile.json"
+          "icon_link": "executives/satya-nadella.webp",
+          "cv_link": "members/satya-nadella/cv.json",
+          "profile_link": "members/satya-nadella/profile.json"
         },
         {
           "initial": "T",
@@ -121,9 +121,9 @@
             }
           ],
           "student_id": "2020006",
-          "icon_link": "https://programming-club-demo-data.pages.dev/tim-cook/icon.webp",
-          "cv_link": "https://programming-club-demo-data.pages.dev/tim-cook/cv.json",
-          "profile_link": "https://programming-club-demo-data.pages.dev/tim-cook/profile.json"
+          "icon_link": "executives/tim-cook.webp",
+          "cv_link": "members/tim-cook/cv.json",
+          "profile_link": "members/tim-cook/profile.json"
         },
         {
           "initial": "S",
@@ -140,9 +140,9 @@
             }
           ],
           "student_id": "2020007",
-          "icon_link": "https://programming-club-demo-data.pages.dev/sundar-pichai/icon.webp",
-          "cv_link": "https://programming-club-demo-data.pages.dev/sundar-pichai/cv.json",
-          "profile_link": "https://programming-club-demo-data.pages.dev/sundar-pichai/profile.json"
+          "icon_link": "executives/sundar-pichai.webp",
+          "cv_link": "members/sundar-pichai/cv.json",
+          "profile_link": "members/sundar-pichai/profile.json"
         },
         {
           "initial": "M",
@@ -159,9 +159,9 @@
             }
           ],
           "student_id": "2020008",
-          "icon_link": "https://programming-club-demo-data.pages.dev/mark-zuckerberg/icon.webp",
-          "cv_link": "https://programming-club-demo-data.pages.dev/mark-zuckerberg/cv.json",
-          "profile_link": "https://programming-club-demo-data.pages.dev/mark-zuckerberg/profile.json"
+          "icon_link": "executives/mark-zuckerberg.webp",
+          "cv_link": "members/mark-zuckerberg/cv.json",
+          "profile_link": "members/mark-zuckerberg/profile.json"
         }
       ]
     },
@@ -272,9 +272,9 @@
           "bio": "Co-founder of Apple. Designed the Apple I and II, proving a hobbyist could change the world.",
           "socials": [],
           "student_id": "2020017",
-          "cv_link": "https://programming-club-demo-data.pages.dev/steve-wozniak/cv.json",
-          "profile_link": "https://programming-club-demo-data.pages.dev/steve-wozniak/profile.json",
-          "icon_link": "https://programming-club-demo-data.pages.dev/steve-wozniak/icon.jpg"
+          "cv_link": "members/steve-wozniak/cv.json",
+          "profile_link": "members/steve-wozniak/profile.json",
+          "icon_link": "executives/steve-wozniak.jpg"
         },
         {
           "initial": "P",

@@ -1,9 +1,0 @@
-{
-  "executives": "resources/data/executives.json",
-  "projects": "resources/data/projects.json",
-  "events": "resources/data/events.json",
-  "courses": "resources/data/courses.json",
-  "achievements": "resources/data/achievements.json",
-  "cv": "resources/data/cv.json",
-  "certificates": "resources/certificates/data/certificates.json"
-}

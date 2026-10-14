@@ -21,10 +21,10 @@ This skill helps convert raw information (resumes, text, markdown, or PDFs) into
    - Name it `cv.json` or `profile.json` (or append the student ID if provided, e.g., `cv_12345.json`).
 5. **Next Steps (Handoff)**:
    - Provide the following instructions to the user:
-     > "I have generated your `[filename].json` file. To link this to the website, please:
-     > 1. Upload this JSON file and your profile picture to a public repository on your GitHub.
-     > 2. Share the raw GitHub links with the website maintainer.
-     > 3. Ask the maintainer to update your entry in `public/resources/data/executives.json` with the new links."
+     > "I have generated your `[filename].json` file. To publish it on the website:
+     > 1. Put it in `members/<your-slug>/` of the database repo (as `profile.json` or `cv.json`) and your photo in `photos/executives/`.
+     > 2. In `executives.json`, set your `profile_link` / `cv_link` to `members/<your-slug>/profile.json` / `members/<your-slug>/cv.json` and `icon_link` to `executives/<photo-file>` (relative paths, no domain).
+     > 3. Commit — the website rebuilds automatically. (Or send the files to the maintainer, who can also do this from the admin panel.)"
 
 ## Schemas & Guidelines
 
