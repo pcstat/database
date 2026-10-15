@@ -1,0 +1,79 @@
+name: Deploy database and rebuild website
+
+# Every change that lands on main (admin panel commit or manual edit):
+#   1. validates the data,
+#   2. uploads the published files (JSON + photos) to Cloudflare Pages — created automatically if missing,
+#   3. starts the website's own GitHub Actions workflow so its static pages pick up the new content.
+# Setup (secrets, project name): see docs/DEPLOYMENT.md in the website repo.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**.json"
+      - "photos/**"
+      - "members/**"
+      - "_headers"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+# One deployment at a time; a newer push waits instead of racing the running one.
+concurrency:
+  group: deploy-database
+  cancel-in-progress: false
+
+env:
+  # The Cloudflare Pages project name = the address <name>.pages.dev.
+  # Change it with a repository variable (Settings → Secrets and variables → Actions → Variables).
+  PROJECT_NAME: ${{ vars.CLOUDFLARE_PROJECT_NAME || 'pcstat-database' }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+
+      - name: Validate
+        run: node scripts/validate.mjs
+
+      - name: Stage published files
+        run: node scripts/build-dist.mjs
+
+      - name: Create the Cloudflare Pages project if it does not exist
+        id: project
+        run: node scripts/ensure-pages-project.mjs
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=${{ env.PROJECT_NAME }} --branch=main
+
+      - name: Collect changed files
+        id: changed
+        run: |
+          {
+            echo 'files<<EOF'
+            git diff --name-only HEAD~1 HEAD || true
+            echo 'EOF'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Rebuild website
+        run: node scripts/trigger-website.mjs
+        env:
+          WEBSITE_REPO_TOKEN: ${{ secrets.WEBSITE_REPO_TOKEN }}
+          WEBSITE_REPO: ${{ vars.WEBSITE_REPO || format('{0}/website', github.repository_owner) }}
+          PUBLIC_BASE: https://${{ steps.project.outputs.subdomain }}/
+          CHANGED_FILES: ${{ steps.changed.outputs.files }}

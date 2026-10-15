@@ -57,21 +57,23 @@ function checkLocalFile(file, where, rel) {
 }
 
 // ── database.json (index) ────────────────────────────────────────────────────
+// Every entry is a path relative to this repo's published root (no domain names live in this repo).
+// The website and the admin panel know where the repo is published from their own database.json.
 const index = readJson("database.json");
 if (index) {
-  if (!index.imageBase || !/^https?:\/\/.+\/$/.test(index.imageBase)) {
-    err("database.json", `"imageBase" must be an absolute URL ending with "/"`);
+  if (!index.imageBase || isAbsolute(index.imageBase) || !index.imageBase.endsWith("/")) {
+    err("database.json", `"imageBase" must be a relative folder path ending with "/" (e.g. "photos/")`);
+  } else if (!fs.existsSync(path.join(ROOT, index.imageBase))) {
+    err("database.json", `"imageBase" folder "${index.imageBase}" does not exist`);
   }
   for (const key of PAGE_FILES) {
-    const url = index[key];
-    if (!url) {
+    const file = index[key];
+    if (!file) {
       err("database.json", `missing key "${key}"`);
       continue;
     }
-    if (!/^https?:\/\//.test(url)) err("database.json", `"${key}" must be an absolute URL (got "${url}")`);
-    if (path.posix.basename(url) !== `${key}.json`) {
-      err("database.json", `"${key}" should end with "${key}.json" (got "${url}")`);
-    }
+    if (isAbsolute(file)) err("database.json", `"${key}" must be a relative path, not a URL (got "${file}")`);
+    else if (file !== `${key}.json`) err("database.json", `"${key}" must be "${key}.json" (got "${file}")`);
   }
 }
 

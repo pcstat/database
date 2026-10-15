@@ -1,11 +1,11 @@
 # Statistics Programming Club — Database
 
-All content of the club website lives here as plain JSON + photos. This repo contains **no code that runs on the site**: the website (`programming-club-demo`) reads it, and the admin panel (`programming-club-demo-admin`) edits it.
+All content of the club website lives here as plain JSON + photos. This repo contains **no code that runs on the site**: the website ([`pcstat/website`](https://github.com/pcstat/website)) reads it, and the admin panel ([`pcstat/admin`](https://github.com/pcstat/admin)) edits it.
 
-> The current content is demo data (famous people as fake members). It is replaced by the real data when this structure moves to the real repo — see [Moving to the real repo](#moving-to-the-real-repo).
+> The current content is demo data (famous people as fake members). Replace it with the real data.
 
 ```
-database.json              ← index: absolute URLs of every file below + the photo base URL
+database.json              ← index: relative path of every file below + the photo folder (no domain names)
 _headers                   ← CORS, so the website can fetch profiles/CVs/certificates in the browser
 executives.json            ← committees and members
 projects.json              ← projects & publications
@@ -16,30 +16,36 @@ certificates.json          ← issued certificates (verification page)
 members/<slug>/profile.json  ← optional "dynamic profile" of a member
 members/<slug>/cv.json       ← optional CV of a member
 photos/executives/<slug>.<ext>   ← member icons
-scripts/                   ← validate.mjs, redeploy-website.mjs, set-base-url.mjs
+scripts/                   ← validate.mjs, build-dist.mjs, ensure-pages-project.mjs, trigger-website.mjs
 ```
 
 ## How the pieces fit together
 
 ```
-admin panel ──commit──▶ this repo (GitHub) ──▶ Cloudflare Pages (serves the JSON + photos)
-                              │
-                              └─ GitHub Action: validate → wait until Pages serves the new files
-                                               → call the website's deploy hook
-                                                         │
-                       website (Cloudflare Pages) ◀──────┘  rebuilds static pages from the fresh data
+admin panel ──commit──▶ this repo (GitHub) ──▶ GitHub Action (.github/workflows/deploy.yml)
+                                                  1. validate the JSON
+                                                  2. upload JSON + photos to Cloudflare Pages
+                                                  3. start the website's own deploy workflow
+                                                              │
+                  website (Cloudflare Pages) ◀────────────────┘  builds on GitHub, uploads the static pages
 ```
 
-* List pages (home stats, executives, alumni, projects, achievements, events, courses) are **built into static HTML** at deploy time — best for SEO. That is why a content change triggers a website rebuild.
+* The GitHub Action **creates the Cloudflare Pages project by itself** if it does not exist yet, and uploads the files directly — Cloudflare never builds anything, so no Cloudflare build minutes are used.
+* List pages (home stats, executives, alumni, projects, achievements, events, courses) are **built into static HTML** at deploy time — best for SEO. That is why a content change rebuilds the website.
 * Profile, CV and certificate pages read their JSON **in the browser** from this repo's site, so they are always current.
+* This repo does not know its own address. The website and the admin panel each have a `database.json` that says where this repo lives.
 
 ### One-time setup
 
-1. Create a Cloudflare Pages project for this repo (no build command, output directory `/`).
-2. Create a **deploy hook** in the *website's* Cloudflare Pages project (Settings → Builds → Deploy hooks).
-3. Add it to this repo as the secret `WEBSITE_DEPLOY_HOOK` (Settings → Secrets and variables → Actions).
+Everything (Cloudflare account, API token, GitHub secrets, project names, first deploy) is described step by step in the **[Deployment guide](https://github.com/pcstat/website/blob/main/docs/DEPLOYMENT.md)**. For this repo you need:
 
-Without the secret the workflow still validates the data and just skips the rebuild.
+| Where | Name | What |
+|---|---|---|
+| Secret | `CLOUDFLARE_API_TOKEN` | Cloudflare API token (Cloudflare Pages: Edit) |
+| Secret | `CLOUDFLARE_ACCOUNT_ID` | Cloudflare account id |
+| Secret | `WEBSITE_REPO_TOKEN` | GitHub token that may start the website's workflow (optional — without it the data is deployed but the website is not rebuilt) |
+| Variable (optional) | `CLOUDFLARE_PROJECT_NAME` | Pages project name; default `pcstat-database` → `https://pcstat-database.pages.dev` |
+| Variable (optional) | `WEBSITE_REPO` | `owner/name` of the website repo; default `<this owner>/website` |
 
 ## Conventions
 
@@ -48,15 +54,7 @@ Without the secret the workflow still validates the data and just skips the rebu
   * `profile_link` / `cv_link`: relative to the repo root — e.g. `members/elon-musk/cv.json`.
   * Absolute `https://…` links are also accepted and used as they are.
 * JSON is formatted with 2 spaces and a trailing newline (the admin panel writes it that way).
-* Run `pnpm validate` (or `node scripts/validate.mjs`) before committing — CI runs the same check.
-
-## Moving to the real repo
-
-1. Copy this structure into the real database repo and replace the demo content.
-2. Deploy it on Cloudflare Pages and run `pnpm set-base-url https://<your-database-domain>` — this rewrites `database.json` only.
-3. In the website, set `NEXT_PUBLIC_DATABASE_INDEX_URL` to `https://<your-database-domain>/database.json`.
-4. In the admin panel, set `DATABASE_REPO` to the new repo.
-5. Add the `WEBSITE_DEPLOY_HOOK` secret to the new repo.
+* Run `pnpm validate` (or `node scripts/validate.mjs`) before committing — CI runs the same check. `pnpm build` stages the files that get published into `dist/` (what the deploy uploads).
 
 ## File reference
 
@@ -64,15 +62,17 @@ Without the secret the workflow still validates the data and just skips the rebu
 
 ```json
 {
-  "imageBase": "https://<database-domain>/photos/",
-  "executives": "https://<database-domain>/executives.json",
-  "projects": "…/projects.json",
-  "events": "…/events.json",
-  "courses": "…/courses.json",
-  "achievements": "…/achievements.json",
-  "certificates": "…/certificates.json"
+  "imageBase": "photos/",
+  "executives": "executives.json",
+  "projects": "projects.json",
+  "events": "events.json",
+  "courses": "courses.json",
+  "achievements": "achievements.json",
+  "certificates": "certificates.json"
 }
 ```
+
+All values are relative to the address where this repo is published, so the repo works on any domain. The address itself is configured in the `database.json` of the website and of the admin panel (see the deployment guide).
 
 ### `executives.json`
 
