@@ -13,9 +13,10 @@ events.json                ← events
 courses.json               ← courses & certificates list
 achievements.json          ← achievements + tally strip
 certificates.json          ← issued certificates (verification page)
+home.json                  ← what the home page pins: executives and top projects
 members/<slug>/profile.json  ← optional "dynamic profile" of a member
 members/<slug>/cv.json       ← optional CV of a member
-photos/executives/<slug>.<ext>   ← member icons
+photos/executives/<slug>.<ext>   ← member icons kept in this repo (a member can also keep the photo in their own repo — see Conventions)
 scripts/                   ← validate.mjs, build-dist.mjs, ensure-pages-project.mjs, trigger-website.mjs
 ```
 
@@ -53,6 +54,7 @@ Everything (Cloudflare account, API token, GitHub secrets, project names, first 
   * `icon_link`: relative to `photos/` — e.g. `executives/elon-musk.webp` (resolved with `imageBase` from `database.json`).
   * `profile_link` / `cv_link`: relative to the repo root — e.g. `members/elon-musk/cv.json`.
   * Absolute `https://…` links are also accepted and used as they are.
+* **A member can keep everything outside this repo.** `profile_link`, `cv_link` **and `icon_link`** may each point to a file the member owns (for example `https://raw.githubusercontent.com/<user>/<repo>/HEAD/photo.jpg`). The member then changes their photo, profile or CV by editing their own repository — no admin involved, no rebuild needed (the browser loads the image). The admin panel's **Member files → Source…** dialog writes these links.
 * JSON is formatted with 2 spaces and a trailing newline (the admin panel writes it that way).
 * Run `pnpm validate` (or `node scripts/validate.mjs`) before committing — CI runs the same check. `pnpm build` stages the files that get published into `dist/` (what the deploy uploads).
 
@@ -68,7 +70,8 @@ Everything (Cloudflare account, API token, GitHub secrets, project names, first 
   "events": "events.json",
   "courses": "courses.json",
   "achievements": "achievements.json",
-  "certificates": "certificates.json"
+  "certificates": "certificates.json",
+  "home": "home.json"
 }
 ```
 
@@ -91,7 +94,7 @@ All values are relative to the address where this repo is published, so the repo
 | `committees` | Newest first. |
 | `session` | Unique ID, no spaces (e.g. `2026-27`). |
 | `label` | Text shown on the website (e.g. `2026 – 2027`). |
-| `total_members` | Optional. Used for the home page "members" stat; falls back to the number of listed members. |
+| `total_members` | Optional. The number of club members, for the home page stat. When it is set the stat reads **MEMBERS**; when it is left out the home page counts the listed executives and the stat reads **EXECUTIVES**. |
 
 Member:
 
@@ -124,9 +127,20 @@ Member:
 
 ### `projects.json`
 
-`{ "projects": [ { title, description, status, tags[], members[], year, link?, demo_link?, featured? } ] }`
+`{ "projects": [ { id, title, description, status, tags[], members[], year, link?, demo_link?, featured? } ] }`
 
-`status`: `active` · `completed` · `research` · `publication`. `members` are `student_id`s. `link` shows a **Repo ↗** button, `demo_link` a **Demo ↗** button.
+`id` is required and unique (`proj-001`, …; the admin panel fills it in). `status`: `active` · `completed` · `research` · `publication`. `members` are `student_id`s. `link` shows a **Repo ↗** button, `demo_link` a **Demo ↗** button.
+
+### `home.json`
+
+```json
+{ "pinned_executives": ["2020001", "2020002"], "pinned_projects": ["proj-008", "proj-002"] }
+```
+
+| Field | Description |
+|---|---|
+| `pinned_executives` | `student_id`s shown in the home page's **Meet the team** block, in this order. Only members of the **current** committee are allowed. Empty = the block is hidden. |
+| `pinned_projects` | Project `id`s shown in the home page's **Top projects** block, in this order. Empty = the block is hidden. |
 
 ### `achievements.json`
 

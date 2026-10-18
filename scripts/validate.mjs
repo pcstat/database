@@ -21,7 +21,7 @@ const ENUMS = {
   eventType: ["upcoming", "workshop", "contest", "seminar", "other"],
   courseType: ["course", "certificate"],
 };
-const PAGE_FILES = ["executives", "projects", "events", "courses", "achievements", "certificates"];
+const PAGE_FILES = ["executives", "projects", "events", "courses", "achievements", "certificates", "home"];
 const isAbsolute = (v) => /^https?:\/\//i.test(v) || v.startsWith("/");
 
 function readJson(rel) {
@@ -90,8 +90,10 @@ if (executives) {
   for (const committee of executives.committees ?? []) {
     const where = `committee ${committee.session}`;
     if (!committee.label) err("executives.json", `${where}: "label" is required`);
-    if (typeof committee.total_members === "number" && committee.total_members !== committee.members.length) {
-      warn("executives.json", `${where}: total_members (${committee.total_members}) differs from the ${committee.members.length} listed members`);
+    // total_members is the number of club members (shown as "MEMBERS"); when it is absent the home page counts the
+    // listed executives instead (shown as "EXECUTIVES"). The two numbers are different things, so no comparison here.
+    if (committee.total_members !== undefined && !(Number.isInteger(committee.total_members) && committee.total_members >= 0)) {
+      err("executives.json", `${where}: "total_members" must be a whole number (or left out)`);
     }
     const highlighted = committee.members.filter((m) => m.highlight).length;
     if (highlighted > 1) warn("executives.json", `${where}: ${highlighted} members are highlighted (only one is expected)`);
@@ -109,6 +111,9 @@ if (executives) {
   }
   checkUnique("executives.json", "student_id", allIds);
 }
+const currentExecutiveIds = new Set(
+  (executives?.committees ?? []).find((c) => c.session === executives?.current_committee)?.members.map((m) => m.student_id) ?? [],
+);
 
 // ── projects / achievements / events / courses / certificates ───────────────
 function checkMemberRefs(file, where, ids) {
@@ -116,8 +121,13 @@ function checkMemberRefs(file, where, ids) {
 }
 
 const projects = readJson("projects.json");
+const projectIds = new Set();
 if (projects) {
+  checkUnique("projects.json", "project id", (projects.projects ?? []).map((p) => p.id));
   for (const p of projects.projects ?? []) {
+    if (!p.id) err("projects.json", `project "${p.title}": "id" is required`);
+    else if (/\s/.test(p.id)) err("projects.json", `project "${p.title}": the id must not contain spaces`);
+    else projectIds.add(p.id);
     checkEnum("projects.json", `project "${p.title}" status`, p.status, ENUMS.projectStatus);
     checkMemberRefs("projects.json", `project "${p.title}"`, p.members);
   }
@@ -153,6 +163,22 @@ if (certificates) {
     for (const f of ["id", "recipient", "date"]) if (!c[f]) err("certificates.json", `certificate ${c.id ?? "?"}: "${f}" is required`);
     if (!c.course && !c.course1) err("certificates.json", `certificate ${c.id ?? "?"}: "course" (or "course1") is required`);
     else if (!c.course) warn("certificates.json", `certificate ${c.id}: has no "course", so the verification page shows an empty course`);
+  }
+}
+
+// ── home.json (what the home page pins) ─────────────────────────────────────
+const home = readJson("home.json");
+if (home) {
+  for (const [key, label] of [["pinned_executives", "executive"], ["pinned_projects", "project"]]) {
+    if (!Array.isArray(home[key])) err("home.json", `"${key}" must be a list`);
+    else checkUnique("home.json", `pinned ${label}`, home[key]);
+  }
+  for (const id of home.pinned_executives ?? []) {
+    if (!memberIds.has(id)) err("home.json", `pinned executive "${id}" is not a known student_id`);
+    else if (!currentExecutiveIds.has(id)) err("home.json", `pinned executive "${id}" is not in the current committee`);
+  }
+  for (const id of home.pinned_projects ?? []) {
+    if (!projectIds.has(id)) err("home.json", `pinned project "${id}" is not a known project id`);
   }
 }
 
