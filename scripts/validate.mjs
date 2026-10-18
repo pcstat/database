@@ -21,7 +21,11 @@ const ENUMS = {
   eventType: ["upcoming", "workshop", "contest", "seminar", "other"],
   courseType: ["course", "certificate"],
 };
-const PAGE_FILES = ["executives", "projects", "events", "courses", "achievements", "certificates", "home"];
+const PAGE_FILES = ["executives", "projects", "events", "courses", "achievements", "certificates", "home", "site"];
+const PILL_STYLES = ["py", "rp", "ml", "st"];
+// Pages the website can link to from its sidebar. "/courses" is a prototype: keep it out of the sidebar until it is finished.
+const NAV_PATHS = ["/", "/exec", "/alumni", "/projects", "/achievements", "/events", "/about", "/courses"];
+const TERMINAL_COMMANDS = ["about", "stats", "team", "projects", "achievements", "events", "alumni", "join"];
 const isAbsolute = (v) => /^https?:\/\//i.test(v) || v.startsWith("/");
 
 function readJson(rel) {
@@ -145,6 +149,7 @@ const events = readJson("events.json");
 if (events) {
   checkUnique("events.json", "event id", (events.events ?? []).map((e) => e.id));
   for (const e of events.events ?? []) {
+    if (!e.id) err("events.json", `event "${e.title}": "id" is required (the admin panel fills it in)`);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(e.date ?? "")) err("events.json", `event "${e.title}": date must be YYYY-MM-DD (got "${e.date}")`);
     checkEnum("events.json", `event "${e.title}" type`, e.type, ENUMS.eventType);
   }
@@ -153,7 +158,10 @@ if (events) {
 const courses = readJson("courses.json");
 if (courses) {
   checkUnique("courses.json", "course id", (courses.courses ?? []).map((c) => c.id));
-  for (const c of courses.courses ?? []) checkEnum("courses.json", `course "${c.title}" type`, c.type, ENUMS.courseType);
+  for (const c of courses.courses ?? []) {
+    if (!c.id) err("courses.json", `course "${c.title}": "id" is required (the admin panel fills it in)`);
+    checkEnum("courses.json", `course "${c.title}" type`, c.type, ENUMS.courseType);
+  }
 }
 
 const certificates = readJson("certificates.json");
@@ -179,6 +187,74 @@ if (home) {
   }
   for (const id of home.pinned_projects ?? []) {
     if (!projectIds.has(id)) err("home.json", `pinned project "${id}" is not a known project id`);
+  }
+}
+
+// ── site.json (club details, navigation, page texts) ────────────────────────
+const site = readJson("site.json");
+if (site) {
+  const text = (where, value) => {
+    if (typeof value !== "string" || !value.trim()) err("site.json", `${where} is required`);
+  };
+  const group = (key, fields) => {
+    if (!site[key] || typeof site[key] !== "object" || Array.isArray(site[key])) {
+      err("site.json", `"${key}" is missing`);
+      return null;
+    }
+    for (const f of fields) text(`${key}.${f}`, site[key][f]);
+    return site[key];
+  };
+  const club = group("club", ["name", "subtitle", "full_name", "department", "university", "email", "browser_title", "description", "share_description"]);
+  if (club && !(Number.isInteger(club.founded) && club.founded > 1900 && club.founded <= new Date().getFullYear())) {
+    err("site.json", `club.founded must be a year such as 2022`);
+  }
+
+  if (!Array.isArray(site.nav) || site.nav.length === 0) err("site.json", `"nav" must be a list with at least one page`);
+  else {
+    checkUnique("site.json", "nav path", site.nav.map((n) => n.path));
+    for (const n of site.nav) {
+      if (!NAV_PATHS.includes(n.path)) err("site.json", `nav: "${n.path}" is not a page of the website (${NAV_PATHS.join(", ")})`);
+      text(`nav ${n.path} label`, n.label);
+      text(`nav ${n.path} icon`, n.icon);
+    }
+  }
+
+  const home = group("home", ["tag", "description"]);
+  if (home) {
+    if (!Array.isArray(home.title_lines) || home.title_lines.length === 0 || home.title_lines.some((l) => typeof l !== "string" || !l.trim())) {
+      err("site.json", `home.title_lines must be a list of non-empty lines`);
+    }
+    if (!Array.isArray(home.pills)) err("site.json", `home.pills must be a list`);
+    else for (const pill of home.pills) {
+      text("home pill label", pill.label);
+      checkEnum("site.json", `home pill "${pill.label}" style`, pill.style, PILL_STYLES);
+    }
+    for (const key of ["projects_block", "team_block"]) {
+      for (const f of ["eyebrow", "title", "accent", "link_label"]) text(`home.${key}.${f}`, home[key]?.[f]);
+    }
+    for (const f of ["eyebrow", "title", "accent", "text", "button_label"]) text(`home.join.${f}`, home.join?.[f]);
+  }
+
+  const terminal = group("terminal", ["title", "tagline", "motto", "focus", "join_text"]);
+  if (terminal) {
+    if (!Array.isArray(terminal.commands)) err("site.json", `terminal.commands must be a list`);
+    else for (const c of terminal.commands) if (!TERMINAL_COMMANDS.includes(c)) err("site.json", `terminal.commands: "${c}" is not one of ${TERMINAL_COMMANDS.join(", ")}`);
+  }
+
+  for (const key of ["exec", "alumni", "projects", "achievements", "events"]) {
+    for (const f of ["eyebrow", "title", "accent", "description"]) text(`pages.${key}.${f}`, site.pages?.[key]?.[f]);
+  }
+
+  const about = group("about", ["eyebrow", "title", "accent", "description"]);
+  if (about) {
+    if (!Array.isArray(about.cards)) err("site.json", `about.cards must be a list`);
+    else for (const c of about.cards) {
+      text("about card title", c.title);
+      text(`about card "${c.title}" text`, c.text);
+    }
+    if (!Array.isArray(about.meetups)) err("site.json", `about.meetups must be a list`);
+    else for (const m of about.meetups) for (const f of ["label", "title", "detail"]) text(`about meetup ${f}`, m[f]);
+    for (const f of ["title", "accent", "text", "button_label"]) text(`about.contact.${f}`, about.contact?.[f]);
   }
 }
 

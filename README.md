@@ -14,6 +14,7 @@ courses.json               ← courses & certificates list
 achievements.json          ← achievements + tally strip
 certificates.json          ← issued certificates (verification page)
 home.json                  ← what the home page pins: executives and top projects
+site.json                  ← club details, sidebar, home page / About page / page-heading texts, terminal
 members/<slug>/profile.json  ← optional "dynamic profile" of a member
 members/<slug>/cv.json       ← optional CV of a member
 photos/executives/<slug>.<ext>   ← member icons kept in this repo (a member can also keep the photo in their own repo — see Conventions)
@@ -35,6 +36,22 @@ admin panel ──commit──▶ this repo (GitHub) ──▶ GitHub Action (.g
 * List pages (home stats, executives, alumni, projects, achievements, events, courses) are **built into static HTML** at deploy time — best for SEO. That is why a content change rebuilds the website.
 * Profile, CV and certificate pages read their JSON **in the browser** from this repo's site, so they are always current.
 * This repo does not know its own address. The website and the admin panel each have a `database.json` that says where this repo lives.
+
+### Pushing without deploying (`[skip ci]`)
+
+GitHub does not start any push-triggered workflow when the **last commit** of the push has `[skip ci]` (also `[ci skip]`, `[no ci]`, `[skip actions]`, `[actions skip]`) in its message:
+
+```bash
+git commit -m "Fix typo in the Mission text [skip ci]"
+git push
+```
+
+Things to know:
+
+* The change is then **not published** — the database site and the website keep showing the old content until the next deploy. Start that one by hand (Actions → *Deploy database and rebuild website* → *Run workflow*; manual runs are never skipped) or with the admin panel's **Publish** button.
+* It is judged on the newest commit of the push only: pushing three commits where the last one has no marker still deploys.
+* Pushes that touch **only** files this repo does not publish (`README.md`, `scripts/`, `.claude/`, …) already skip the deploy, because the workflow only watches `**.json`, `photos/`, `members/`, `_headers` and itself.
+* The admin panel's *Save* bar has a **Save without publishing** option that adds the marker for you.
 
 ### One-time setup
 
@@ -71,7 +88,8 @@ Everything (Cloudflare account, API token, GitHub secrets, project names, first 
   "courses": "courses.json",
   "achievements": "achievements.json",
   "certificates": "certificates.json",
-  "home": "home.json"
+  "home": "home.json",
+  "site": "site.json"
 }
 ```
 
@@ -129,7 +147,7 @@ Member:
 
 `{ "projects": [ { id, title, description, status, tags[], members[], year, link?, demo_link?, featured? } ] }`
 
-`id` is required and unique (`proj-001`, …; the admin panel fills it in). `status`: `active` · `completed` · `research` · `publication`. `members` are `student_id`s. `link` shows a **Repo ↗** button, `demo_link` a **Demo ↗** button.
+`id` is required and unique. **The admin panel assigns it automatically** (`proj-9f3a1c7e`) — never type one by hand, and never change it once the project is pinned on the home page. `status`: `active` · `completed` · `research` · `publication`. `members` are `student_id`s. `link` shows a **Repo ↗** button, `demo_link` a **Demo ↗** button.
 
 ### `home.json`
 
@@ -142,6 +160,21 @@ Member:
 | `pinned_executives` | `student_id`s shown in the home page's **Meet the team** block, in this order. Only members of the **current** committee are allowed. Empty = the block is hidden. |
 | `pinned_projects` | Project `id`s shown in the home page's **Top projects** block, in this order. Empty = the block is hidden. |
 
+### `site.json`
+
+Everything the website used to hard-code: the club's name and contact details, the sidebar, the texts of the home page, the About page and the page headings, and the terminal on the home page. **Edit it in the admin panel** (Club details, Navigation & headings, Homepage, About page) — no website code change is needed.
+
+| Key | What it controls |
+|---|---|
+| `club` | `name` + `subtitle` (the logo), `full_name`, `founded` (year — also the *Years* counter and “Est.”), `department`, `university`, `email` (footer and contact button), `browser_title`, `description`, `share_description` (tab title and search / share previews). |
+| `nav` | The sidebar and mobile menu, in this order: `{ path, label, icon }`. `path` is one of `/`, `/exec`, `/alumni`, `/projects`, `/achievements`, `/events`, `/about`, `/courses`. A page that is not listed is not in the menu (it can still be opened by its address). **`/courses` and the certificate pages are prototypes and are deliberately not listed.** |
+| `home` | Hero (`tag`, `title_lines`, `description`, `pills[]` with `style` `py` · `rp` · `ml` · `st`), the headings of the *Top projects* and *Club leadership* blocks, and the *Join us* banner. Which projects and executives are shown is chosen in `home.json`. |
+| `terminal` | Title bar, the lines printed by `about` / `join`, and `commands` — the buttons under the terminal, in order. (`verify` is not offered while certificates are a prototype.) |
+| `pages` | Eyebrow, title, highlighted word and description of the Executives, Past executives, Projects, Achievements and Events pages. |
+| `about` | Heading, `cards[]` (numbered automatically; `wide` makes one span both columns), `meetups[]`, and the *Get in touch* banner. |
+
+Every field is required (the validator checks it): the website fails its build rather than showing a half-empty page.
+
 ### `achievements.json`
 
 `{ "tally": [ { value, label } ], "achievements": [ { title, event, category, year, tier, team_label, members[], featured? } ] }`
@@ -152,11 +185,11 @@ Member:
 
 `{ "note": "…", "events": [ { id, title, date, time, location, audience, type, register_link?, details_link? } ] }`
 
-`date` is `YYYY-MM-DD`. `type`: `upcoming` · `workshop` · `contest` · `seminar` · `other`.
+`id` is assigned by the admin panel. `date` is `YYYY-MM-DD`. `type`: `upcoming` · `workshop` · `contest` · `seminar` · `other`.
 
 ### `courses.json`
 
-`{ "courses": [ { id, title, provider, description, type, year, link?, featured? } ] }` — `type`: `course` · `certificate`.
+`{ "courses": [ { id, title, provider, description, type, year, link?, featured? } ] }` — `id` is assigned by the admin panel; `type`: `course` · `certificate`. The Courses page is a prototype: its data is kept but it is not in the sidebar.
 
 ### `certificates.json`
 
