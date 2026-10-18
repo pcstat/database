@@ -95,17 +95,21 @@ The dynamic profile is an immersive, full-width, magazine-style editorial portfo
 
 ## 2. Curriculum Vitae (`cv.json`)
 
-The CV feature provides a professionally formatted "Official Record" page.
+The CV feature provides a professionally formatted "Official Record" page on screen, and a plain one-column CV when it is printed (Print / PDF). The printed CV follows today's CV conventions: a header with contact details, a short summary, then Education, Experience, Projects, Skills, Publications, Awards and any other sections, with Certifications and Languages last. It is single-column and ATS-friendly, with no photo.
 
 ### Core Profile Fields
 - `name` (String): Full name.
-- `role` (String): Professional title.
+- `role` (String): Professional title / headline.
+- `summary` (String, recommended): 2–3 sentences — who you are, what you do best, what you are looking for. Shown first on the printed CV.
 - `location` (String): City and Country.
+- `phone` (String, optional): Phone number with country code.
 - `email` (String): Contact email address.
 - `github` (String): GitHub profile URL or username.
+- `linkedin` (String, optional): LinkedIn profile URL.
+- `website` (String, optional): Portfolio or personal site.
 
 ### Standard Sidebar Sections
-- `education` (Array of objects): `degree`, `institution`, `year`, `cgpa`, `rank` (optional).
+- `education` (Array of objects): `degree`, `institution`, `location` (optional), `year`, `cgpa` (e.g. `"3.85 / 4.00"`), `rank` (optional), `honors` (optional, e.g. `"First Class"`), `thesis` (optional), `coursework` (optional array of strings).
 - `certifications` (Array of objects): `title`, `link` (optional).
 - `languages` (Array of strings).
 
@@ -115,8 +119,10 @@ Any key that is an array and not one of the standard fields will be rendered in 
 **Entry Structure:**
 - `title` (String): Bold primary role/title.
 - `subtitle` (String): Secondary company/detail.
-- `dates` (String): Right-aligned muted dates.
-- `bullets` (Array): Can be strings or objects `{ "text": "...", "children": [...] }` for nested lists.
+- `location` (String, optional): Where the work was done; shown next to the subtitle.
+- `link` (String, optional): Link to a project, paper or repository.
+- `dates` (String): Right-aligned muted dates. Use one date style across the whole CV (`2023 – 2025` or `Jan 2023 – Dec 2025`).
+- `bullets` (Array): Start with a strong verb and give a number where you can ("cut build time by 40%"). Can be strings or objects `{ "text": "...", "children": [...] }` for nested lists.
 - `commas` (Array of strings): Inline flow layout.
 
 ### Example `cv.json`
@@ -124,16 +130,22 @@ Any key that is an array and not one of the standard fields will be rendered in 
 {
   "name": "Rahul Das",
   "role": "Intern Researcher",
+  "summary": "Statistics student with hands-on experience in machine learning for health data. Looking for a research internship in applied ML.",
   "location": "Chittagong, Bangladesh",
+  "phone": "+880 1700 000000",
   "email": "rahuldas12d34@gmail.com",
   "github": "github.com/rahuldadn",
+  "linkedin": "linkedin.com/in/rahuldadn",
   "languages": ["Bengali", "English"],
   "education": [
     {
       "degree": "B.Sc. in Statistics",
       "institution": "University of Dhaka",
       "year": "Jan ’22 - May ’26",
-      "cgpa": "3.85/4.0"
+      "cgpa": "3.85 / 4.00",
+      "honors": "First Class",
+      "thesis": "Explainable ML for breast cancer prediction",
+      "coursework": ["Regression Analysis", "Machine Learning", "Survival Analysis"]
     }
   ],
   "experience": [

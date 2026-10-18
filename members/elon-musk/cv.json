@@ -1,23 +1,32 @@
 {
   "name": "Elon Musk",
   "role": "Chief Engineer & CEO",
+  "summary": "Engineer and founder with 25+ years building hardware and software companies across space, energy and AI. Takes ideas from first-principles design to mass production, leading teams of thousands. Interested in applying large-scale engineering thinking to club projects.",
   "location": "Texas, USA",
+  "phone": "+1 (555) 010-1001",
   "email": "elon@tesla.com",
   "github": "github.com/elonmusk",
+  "linkedin": "linkedin.com/in/demo-elon-musk",
+  "website": "elon-musk.example.dev",
   "languages": ["English"],
   "education": [
     {
       "degree": "B.A. in Physics",
       "institution": "University of Pennsylvania",
       "year": "1995",
-      "cgpa": "null /4.0"
+      "cgpa": "3.78 / 4.00",
+      "honors": "Cum Laude",
+      "thesis": "Ultracapacitors for Electric Vehicle Energy Storage",
+      "coursework": ["Quantum Mechanics", "Thermodynamics", "Solid-State Physics", "Mathematical Methods"]
     },
     {
       "degree": "B.S. in Economics",
       "institution": "University of Pennsylvania",
       "year": "1995",
-      "cgpa": "null /4.0",
-      "rank": "null /120"
+      "cgpa": "3.84 / 4.00",
+      "rank": "14 / 120",
+      "honors": "Magna Cum Laude",
+      "coursework": ["Microeconomics", "Econometrics", "Corporate Finance", "Game Theory"]
     }
   ],
   "certifications": [
@@ -60,7 +69,8 @@
             "Integrated advanced vision-based AI into humanoid form factors for real-world application."
           ]
         }
-      ]
+      ],
+      "location": "Texas, USA"
     },
     {
       "title": "Founder & Chief Engineer",
@@ -84,7 +94,8 @@
             "Established a cadence of rapid prototyping and iterative testing for spacecraft development."
           ]
         }
-      ]
+      ],
+      "location": "Texas, USA"
     },
     {
       "title": "Founder & Owner",
@@ -100,7 +111,8 @@
             "Integrated Grok AI into the X platform to provide real-time, unfiltered information to users."
           ]
         }
-      ]
+      ],
+      "location": "Texas, USA"
     },
     {
       "title": "Co-founder",
@@ -115,7 +127,8 @@
             "Developed the early infrastructure for digital currency transfer and fraud detection."
           ]
         }
-      ]
+      ],
+      "location": "Texas, USA"
     }
   ],
   "projects": [
@@ -127,7 +140,8 @@
         "Created a precision robotic system for surgical implantation of ultra-thin electrodes into the motor cortex.",
         "Implemented advanced signal processing to translate neural activity into digital commands.",
         "Obtained FDA approval for first human clinical trials of the Link implant."
-      ]
+      ],
+      "link": "github.com/demo-elon-musk/neuralink"
     },
     {
       "title": "The Boring Company",
@@ -137,7 +151,8 @@
         "Developed high-speed tunneling machines (Prufrock) to reduce the cost and speed of tunneling by 10x.",
         "Implemented autonomous electric vehicles for transit within the tunnel networks.",
         "Created a scalable model for underground utility corridors to reduce urban surface disruption."
-      ]
+      ],
+      "link": "github.com/demo-elon-musk/the-boring-company"
     },
     {
       "title": "OpenAI",
@@ -146,7 +161,8 @@
         "Co-founded OpenAI to ensure that artificial general intelligence (AGI) is developed safely and for the benefit of all humanity.",
         "Provided initial seed funding and guidance on AI safety and alignment.",
         "Advocated for the development of open-source AI to prevent the concentration of power in a few large corporations."
-      ]
+      ],
+      "link": "github.com/demo-elon-musk/openai"
     }
   ],
   "activities": [
@@ -186,13 +202,17 @@
       "title": "Tesla Master Plan, Part I, II, and III",
       "subtitle": "Industry Whitepapers",
       "dates": "2006, 2016, 2020",
-      "bullets": ["Strategic roadmaps for sustainable energy transition"]
+      "bullets": [
+        "Strategic roadmaps for sustainable energy transition"
+      ]
     },
     {
       "title": "The Mars Colonization Blueprint",
       "subtitle": "Internal SpaceX Strategy",
       "dates": "2017",
-      "bullets": ["Detailed framework for establishing a self-sustaining city on Mars"]
+      "bullets": [
+        "Detailed framework for establishing a self-sustaining city on Mars"
+      ]
     }
   ],
   "workshops_conducted": [
@@ -200,7 +220,9 @@
       "title": "First Principles Engineering Workshop",
       "subtitle": "Internal Tesla/SpaceX Engineering",
       "dates": "Ongoing",
-      "bullets": ["Teaching the application of first-principles thinking to solve extreme engineering challenges"]
+      "bullets": [
+        "Teaching the application of first-principles thinking to solve extreme engineering challenges"
+      ]
     }
   ]
 }
