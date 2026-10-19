@@ -25,6 +25,8 @@ const PAGE_FILES = ["executives", "projects", "events", "courses", "achievements
 const PILL_STYLES = ["py", "rp", "ml", "st"];
 // Pages the website can link to from its sidebar. "/courses" is a prototype: keep it out of the sidebar until it is finished.
 const NAV_PATHS = ["/", "/exec", "/alumni", "/projects", "/achievements", "/events", "/about", "/courses"];
+// Icons the website can draw in the sidebar (same drawings as the admin panel).
+const NAV_ICONS = ["home", "people", "history", "box", "trophy", "calendar", "info", "book", "badge"];
 const TERMINAL_COMMANDS = ["about", "stats", "team", "projects", "achievements", "events", "alumni", "join"];
 const isAbsolute = (v) => /^https?:\/\//i.test(v) || v.startsWith("/");
 
@@ -215,7 +217,7 @@ if (site) {
     for (const n of site.nav) {
       if (!NAV_PATHS.includes(n.path)) err("site.json", `nav: "${n.path}" is not a page of the website (${NAV_PATHS.join(", ")})`);
       text(`nav ${n.path} label`, n.label);
-      text(`nav ${n.path} icon`, n.icon);
+      checkEnum("site.json", `nav ${n.path} icon`, n.icon, NAV_ICONS);
     }
   }
 

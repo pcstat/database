@@ -12,27 +12,84 @@
     "share_description": "We write code. We build things. We compete."
   },
   "nav": [
-    { "path": "/", "label": "Home", "icon": "~/" },
-    { "path": "/exec", "label": "Executives", "icon": "{}" },
-    { "path": "/alumni", "label": "Past Executives", "icon": "[]" },
-    { "path": "/projects", "label": "Projects & Publications", "icon": "⬡" },
-    { "path": "/achievements", "label": "Achievements", "icon": "★" },
-    { "path": "/events", "label": "Events", "icon": "›_" },
-    { "path": "/about", "label": "About / Contact", "icon": "?" }
+    {
+      "path": "/",
+      "label": "Home",
+      "icon": "home"
+    },
+    {
+      "path": "/exec",
+      "label": "Executives",
+      "icon": "people"
+    },
+    {
+      "path": "/alumni",
+      "label": "Past Executives",
+      "icon": "history"
+    },
+    {
+      "path": "/projects",
+      "label": "Projects & Publications",
+      "icon": "box"
+    },
+    {
+      "path": "/achievements",
+      "label": "Achievements",
+      "icon": "trophy"
+    },
+    {
+      "path": "/events",
+      "label": "Events",
+      "icon": "calendar"
+    },
+    {
+      "path": "/about",
+      "label": "About / Contact",
+      "icon": "info"
+    }
   ],
   "home": {
     "tag": "Statistics Programming Club",
-    "title_lines": ["We write code.", "We build things.", "We compete."],
+    "title_lines": [
+      "We write code.",
+      "We build things.",
+      "We compete."
+    ],
     "description": "A community of programmers, problem-solvers, and builders. From competitive programming to ML research and open-source — this is where ideas become code.",
     "pills": [
-      { "label": "🐍 Python", "style": "py" },
-      { "label": "🆁 R Programming", "style": "rp" },
-      { "label": "🤖 AI / ML", "style": "ml" },
-      { "label": "🧠 Deep Learning", "style": "ml" },
-      { "label": "📊 Statistics", "style": "st" }
+      {
+        "label": "🐍 Python",
+        "style": "py"
+      },
+      {
+        "label": "🆁 R Programming",
+        "style": "rp"
+      },
+      {
+        "label": "🤖 AI / ML",
+        "style": "ml"
+      },
+      {
+        "label": "🧠 Deep Learning",
+        "style": "ml"
+      },
+      {
+        "label": "📊 Statistics",
+        "style": "st"
+      }
     ],
-    "projects_block": { "eyebrow": "Portfolio", "title": "Top", "accent": "projects", "link_label": "All projects →" },
-    "team_block": { "eyebrow": "Committee", "title": "Club", "accent": "leadership", "link_label": "All executives →" },
+    "projects_block": {
+      "eyebrow": "Portfolio",
+      "title": "Top",
+      "accent": "projects",
+      "link_label": "All projects →"
+    },
+    "team_block": {
+      "eyebrow": "Committee",
+      "title": "Club",
+      "accent": "leadership",
+      "link_label": "All executives →"
+    },
     "join": {
       "eyebrow": "Join us",
       "title": "Bring curiosity.",
@@ -47,7 +104,16 @@
     "motto": "programmers, problem-solvers & builders",
     "focus": "python · r · ai/ml · deep learning · statistics",
     "join_text": "open to every Stat major & minor — no experience needed.",
-    "commands": ["about", "stats", "team", "projects", "achievements", "events", "alumni", "join"]
+    "commands": [
+      "about",
+      "stats",
+      "team",
+      "projects",
+      "achievements",
+      "events",
+      "alumni",
+      "join"
+    ]
   },
   "pages": {
     "exec": {
@@ -102,9 +168,21 @@
       }
     ],
     "meetups": [
-      { "label": "WEEKLY MEETUP", "title": "Every Thursday", "detail": "3:00 PM · Room 406, Faculty Building" },
-      { "label": "PRACTICE SESSION", "title": "Every Saturday", "detail": "3:00 PM · Lab 1, Faculty Building" },
-      { "label": "ONLINE CONTEST", "title": "Monthly", "detail": "8:00 PM · HackerRank Platform" }
+      {
+        "label": "WEEKLY MEETUP",
+        "title": "Every Thursday",
+        "detail": "3:00 PM · Room 406, Faculty Building"
+      },
+      {
+        "label": "PRACTICE SESSION",
+        "title": "Every Saturday",
+        "detail": "3:00 PM · Lab 1, Faculty Building"
+      },
+      {
+        "label": "ONLINE CONTEST",
+        "title": "Monthly",
+        "detail": "8:00 PM · HackerRank Platform"
+      }
     ],
     "contact": {
       "title": "Get in",
