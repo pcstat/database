@@ -21,13 +21,13 @@ const ENUMS = {
   eventType: ["upcoming", "workshop", "contest", "seminar", "other"],
   courseType: ["course", "certificate"],
 };
-const PAGE_FILES = ["executives", "projects", "events", "courses", "achievements", "certificates", "home", "site"];
+const PAGE_FILES = ["executives", "projects", "events", "courses", "achievements", "home", "site"];
 const PILL_STYLES = ["py", "rp", "ml", "st"];
-// Pages the website can link to from its sidebar. "/courses" is a prototype: keep it out of the sidebar until it is finished.
-const NAV_PATHS = ["/", "/exec", "/alumni", "/projects", "/achievements", "/events", "/about", "/courses"];
+// Pages the website can link to from its sidebar.
+const NAV_PATHS = ["/", "/exec", "/alumni", "/projects", "/achievements", "/events", "/about", "/courses", "/certificate"];
 // Icons the website can draw in the sidebar (same drawings as the admin panel).
 const NAV_ICONS = ["home", "people", "history", "box", "trophy", "calendar", "info", "book", "badge"];
-const TERMINAL_COMMANDS = ["about", "stats", "team", "projects", "achievements", "events", "alumni", "join"];
+const TERMINAL_COMMANDS = ["about", "stats", "team", "projects", "achievements", "events", "alumni", "verify", "join"];
 const isAbsolute = (v) => /^https?:\/\//i.test(v) || v.startsWith("/");
 
 function readJson(rel) {
@@ -121,7 +121,7 @@ const currentExecutiveIds = new Set(
   (executives?.committees ?? []).find((c) => c.session === executives?.current_committee)?.members.map((m) => m.student_id) ?? [],
 );
 
-// ── projects / achievements / events / courses / certificates ───────────────
+// ── projects / achievements / events / courses ──────────────────────────────
 function checkMemberRefs(file, where, ids) {
   for (const id of ids ?? []) if (!memberIds.has(id)) err(file, `${where}: unknown member id "${id}"`);
 }
@@ -166,15 +166,8 @@ if (courses) {
   }
 }
 
-const certificates = readJson("certificates.json");
-if (certificates) {
-  checkUnique("certificates.json", "certificate id", (certificates.issued_certificates ?? []).map((c) => c.id));
-  for (const c of certificates.issued_certificates ?? []) {
-    for (const f of ["id", "recipient", "date"]) if (!c[f]) err("certificates.json", `certificate ${c.id ?? "?"}: "${f}" is required`);
-    if (!c.course && !c.course1) err("certificates.json", `certificate ${c.id ?? "?"}: "course" (or "course1") is required`);
-    else if (!c.course) warn("certificates.json", `certificate ${c.id}: has no "course", so the verification page shows an empty course`);
-  }
-}
+// Certificates are NOT in this repo: they live in their own repository (pcstat/certificates), because there will be
+// thousands of them. Its address is configured in the website's and the admin panel's database.json ("certificates").
 
 // ── home.json (what the home page pins) ─────────────────────────────────────
 const home = readJson("home.json");
@@ -243,7 +236,7 @@ if (site) {
     else for (const c of terminal.commands) if (!TERMINAL_COMMANDS.includes(c)) err("site.json", `terminal.commands: "${c}" is not one of ${TERMINAL_COMMANDS.join(", ")}`);
   }
 
-  for (const key of ["exec", "alumni", "projects", "achievements", "events"]) {
+  for (const key of ["exec", "alumni", "projects", "achievements", "events", "courses", "certificate"]) {
     for (const f of ["eyebrow", "title", "accent", "description"]) text(`pages.${key}.${f}`, site.pages?.[key]?.[f]);
   }
 

@@ -6,13 +6,12 @@ All content of the club website lives here as plain JSON + photos. This repo con
 
 ```
 database.json              ← index: relative path of every file below + the photo folder (no domain names)
-_headers                   ← CORS, so the website can fetch profiles/CVs/certificates in the browser
+_headers                   ← CORS, so the website can fetch profiles and CVs in the browser
 executives.json            ← committees and members
 projects.json              ← projects & publications
 events.json                ← events
-courses.json               ← courses & certificates list
+courses.json               ← courses & certifications list
 achievements.json          ← achievements + tally strip
-certificates.json          ← issued certificates (verification page)
 home.json                  ← what the home page pins: executives and top projects
 site.json                  ← club details, sidebar, home page / About page / page-heading texts, terminal
 members/<slug>/profile.json  ← optional "dynamic profile" of a member
@@ -34,7 +33,8 @@ admin panel ──commit──▶ this repo (GitHub) ──▶ GitHub Action (.g
 
 * The GitHub Action **creates the Cloudflare Pages project by itself** if it does not exist yet, and uploads the files directly — Cloudflare never builds anything, so no Cloudflare build minutes are used.
 * List pages (home stats, executives, alumni, projects, achievements, events, courses) are **built into static HTML** at deploy time — best for SEO. That is why a content change rebuilds the website.
-* Profile, CV and certificate pages read their JSON **in the browser** from this repo's site, so they are always current.
+* Profile and CV pages read their JSON **in the browser** from this repo's site, so they are always current.
+* **Issued certificates are not in this repo.** There will be thousands of them, so they live in their own repository, [`pcstat/certificates`](https://github.com/pcstat/certificates), with their own deploy. A new certificate never rebuilds the website. See that repo's README.
 * This repo does not know its own address. The website and the admin panel each have a `database.json` that says where this repo lives.
 
 ### Pushing without deploying (`[skip ci]`)
@@ -87,7 +87,6 @@ Everything (Cloudflare account, API token, GitHub secrets, project names, first 
   "events": "events.json",
   "courses": "courses.json",
   "achievements": "achievements.json",
-  "certificates": "certificates.json",
   "home": "home.json",
   "site": "site.json"
 }
@@ -167,10 +166,10 @@ Everything the website used to hard-code: the club's name and contact details, t
 | Key | What it controls |
 |---|---|
 | `club` | `name` + `subtitle` (the logo), `full_name`, `founded` (year — also the *Years* counter and “Est.”), `department`, `university`, `email` (footer and contact button), `browser_title`, `description`, `share_description` (tab title and search / share previews). |
-| `nav` | The sidebar and mobile menu, in this order: `{ path, label, icon }`; `icon` is the name of a drawing — `home`, `people`, `history`, `box`, `trophy`, `calendar`, `info`, `book` or `badge`. `path` is one of `/`, `/exec`, `/alumni`, `/projects`, `/achievements`, `/events`, `/about`, `/courses`. A page that is not listed is not in the menu (it can still be opened by its address). **`/courses` and the certificate pages are prototypes and are deliberately not listed.** |
+| `nav` | The sidebar and mobile menu, in this order: `{ path, label, icon }`; `icon` is the name of a drawing — `home`, `people`, `history`, `box`, `trophy`, `calendar`, `info`, `book` or `badge`. `path` is one of `/`, `/exec`, `/alumni`, `/projects`, `/achievements`, `/events`, `/about`, `/courses`, `/certificate` (the certificate verification page). A page that is not listed is not in the menu (it can still be opened by its address). |
 | `home` | Hero (`tag`, `title_lines`, `description`, `pills[]` with `style` `py` · `rp` · `ml` · `st`), the headings of the *Top projects* and *Club leadership* blocks, and the *Join us* banner. Which projects and executives are shown is chosen in `home.json`. |
-| `terminal` | Title bar, the lines printed by `about` / `join`, and `commands` — the buttons under the terminal, in order. (`verify` is not offered while certificates are a prototype.) |
-| `pages` | Eyebrow, title, highlighted word and description of the Executives, Past executives, Projects, Achievements and Events pages. |
+| `terminal` | Title bar, the lines printed by `about` / `join`, and `commands` — the buttons under the terminal, in order (`about`, `stats`, `team`, `projects`, `achievements`, `events`, `alumni`, `verify`, `join`). |
+| `pages` | Eyebrow, title, highlighted word and description of the Executives, Past executives, Projects, Achievements, Events, Courses and Certificate verification pages. |
 | `about` | Heading, `cards[]` (numbered automatically; `wide` makes one span both columns), `meetups[]`, and the *Get in touch* banner. |
 
 Every field is required (the validator checks it): the website fails its build rather than showing a half-empty page.
@@ -189,13 +188,17 @@ Every field is required (the validator checks it): the website fails its build r
 
 ### `courses.json`
 
-`{ "courses": [ { id, title, provider, description, type, year, link?, featured? } ] }` — `id` is assigned by the admin panel; `type`: `course` · `certificate`. The Courses page is a prototype: its data is kept but it is not in the sidebar.
+`{ "courses": [ { id, title, provider, description, type, year, link?, featured? } ] }` — `id` is assigned by the admin panel; `type`: `course` · `certificate` (a certification that members earned elsewhere). The Courses page lists them; **certificates issued by the club** are a separate thing — see below.
 
-### `certificates.json`
+### Certificates (not in this repo)
 
-`{ "issued_certificates": [ { id, recipient, course (or course1 + course2), date, template?, reason, reason2, person1, post1, person2, post2, modules?, hours?, score?, grade? } ] }`
+Certificates the club issues are stored in [`pcstat/certificates`](https://github.com/pcstat/certificates): batches of recipients, the SVG templates and a build that publishes one small lookup file per ID bucket. The website and the admin panel find it through the `certificates` entry of **their own** `database.json`:
 
-`template` is the name of an SVG template in the website repo (`public/resources/certificates/svg/`, default `Certificate_A.svg`).
+```json
+{ "repo": "pcstat/database", "branch": "main", "url": "…", "certificates": { "repo": "pcstat/certificates", "branch": "main", "url": "https://pcstat-certificates.pages.dev" } }
+```
+
+A course in `courses.json` can be linked from a certificate batch (`course_id`), which is how the admin panel proposes the course title when certificates are issued.
 
 ### `members/<slug>/profile.json` and `cv.json`
 
